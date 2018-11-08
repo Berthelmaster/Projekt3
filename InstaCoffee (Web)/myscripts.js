@@ -46,8 +46,8 @@ function init()
   output = document.getElementById("output");
   testWebSocket();
 
-//Sættes et andet sted eller tilføj refresh
-  //setTime();
+  //Sættes et andet sted eller tilføj refresh
+  setTime();
 }
 
 function testWebSocket()
@@ -63,8 +63,6 @@ function onOpen(evt)
 {
   writeToScreen("CONNECTED");
   doSend("Connection open");
-
-
 }
 
 function onClose(evt)
@@ -142,17 +140,21 @@ function setBrewTime()
   writeToScreen("&"+coffeeselect+", "+coffeeStrength+", "+cupSize+", "+brewTime);
 }
 
-/*function setTime()
+function setTime()
 {
-  var today = new Date();
-  var hh = today.getHour();
-  var mi = today.getMinutes();
-  var dd = today.getDate();
-  var mm = today.getMonth()+1; //January is 0!
-  var yyyy = today.getFullYear();
+ var today = new Date();
+ var dd = today.getDate(); //day
+ var mm = today.getMonth()+1; //January is 0
+ var yyyy = today.getFullYear(); 
 
-  document.getElementById("brewHour").value=string(hh)+":"+string(mi);
-  document.getElementById("brewDate").value=yyyy+"-"+mm"-"+dd;
+ if (dd<10) {
+  dd="0"+dd;
+ }
+ if (mm<10) {
+  mm="0"+mm;
+ }
 
+ document.getElementById("brewDate").value=String(yyyy+"-"+mm+"-"+dd);
+ 
 
-}*/
+}
