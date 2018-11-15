@@ -16,7 +16,7 @@ EXE_DIR=bin/target
 MKDIR=mkdir -p
 endif
 
-SOURCES=Test.cpp
+SOURCES=Tidsindstilling.cpp
 OBJECTS=$(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.o))
 DEPS=$(addprefix $(BUILD_DIR)/, $(SOURCES:.cpp=.d))
 EXE=prog
