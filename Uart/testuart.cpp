@@ -8,11 +8,11 @@ int main(int argc, char const *argv[]) {
 	UART uart;
 	char message[] = "Hej";
 
-	char msg[] = {1,2,3,4,5,6,7,8};
+	//char msg[] = {0x01};
 
 	while (1) {
-//		uart.writeChar(message);
-	uart.writeBinary(msg, 8);
+		uart.writeChar(message);
+		//uart.writeBinary(msg, 1);
 		printf("%s\n", uart.readChar());
 		//std::cout << uart.readChar() << std::endl;
 	}

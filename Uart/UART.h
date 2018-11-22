@@ -62,7 +62,7 @@ public:
 
   void writeChar(char *message)
   {
-    int n = write(fd, message, sizeof(message));
+    int n = write(fd, message, sizeof(&message));
     if (n < 0)
       fputs("write() of 1 byte failed!\n", stderr);
   }
