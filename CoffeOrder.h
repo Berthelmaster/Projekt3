@@ -3,19 +3,23 @@
 #include <iostream>
 
 class CoffeeOrder : public Message {
-public:
-    CoffeeOrder()
-    {}
-    void setCoffeeNumber(char num)
+  public:
+    CoffeeOrder(char type, char strength, int size)
+    {
+      setCoffeeType(type);
+      setCoffeeStrength(strength);
+      setCupSize(size);
+    }
+    void setCoffeeType(char num)
     {
       if (num == '1' || num == '2')
-        coffeeNumber = num;
+        coffeeType = num;
       else
-        std::cout << "Coffee Number not valid" << std::endl;
+        std::cout << "Coffee Type not valid" << std::endl;
     }
-    char getCoffeeNumber()
+    char getCoffeeType()
     {
-      return coffeeNumber;
+      return coffeeType;
     }
     void setCoffeeStrength(char strength)
     {
@@ -46,7 +50,7 @@ public:
     ~CoffeeOrder()
     {}
 private:
-    char coffeeNumber = '0';
+    char coffeeType = '0';
     char coffeeStrength = '0';
     int cupSize = 0;
 };
