@@ -8,10 +8,9 @@ class ConvertToGram
 {
 public:
   ConvertToGram();
-  double getGrams(char, char);
+  int getGrams(int, char);
 
 private:
-  double size_=0;
   double strength_=0;
   double grams_=0;
 };
