@@ -10,7 +10,7 @@ void T4_timeSetting::run()
   //Alt funktionalitet skal ske herfra
 }
 
-void T4_timeSetting::sendCoffeeOrder(int size, int type, int strength);
+void T4_timeSetting::sendCoffeeOrder(int size, int type, int strength)
 {
   CoffeeOrder* ind = new CoffeeOrder;
   ind.setCupSize(size);

@@ -10,7 +10,7 @@ void T3_LocalUI::run()
   //Alt funktionalitet skal ske herfra
 }
 
-void T3_LocalUI::sendCoffeeOrder(int size, int type, int strength);
+void T3_LocalUI::sendCoffeeOrder(int size, int type, int strength)
 {
   CoffeeOrder* ind = new CoffeeOrder;
   ind.setCupSize(size);

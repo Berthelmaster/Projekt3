@@ -5,7 +5,8 @@
 #include <iostream>
 #include <string>
 #include <osapi/Utility.hpp>
-#include "UARTHandler.h"
+#include "UART.h"
+#include "ConvertToGram.h"
 
 class T2_coffeOrderHandler :public osapi::ThreadFunctor
 {
@@ -15,11 +16,12 @@ public:
   void handler(osapi::Message* msg, unsigned long id);
   void sendStatus();
   void setmsgQ(osapi::MsgQueue *msgQ);
+  osapi::MsgQueue* getmsgQ();
 
 private:
   osapi::MsgQueue*  mq_;
   osapi::MsgQueue*  T1Mq_;
-  UARTHandler       UART_;
-  ConvertToGrams    grams_;
+  UART              UART_;
+  ConvertToGram     grams_;
   char              filter_=0;
 };

@@ -1,19 +1,18 @@
 #pragma once
 #include <osapi/Message.hpp>
+#include <osapi/MsgQueue.hpp>
 
-
-#pragma once
-#include "Message.h"
 #include <iostream>
 
-class CoffeeOrder : public Message {
+class CoffeeOrder : public osapi::Message {
   public:
-    CoffeeOrder(char type, char strength, int size)
+    CoffeeOrder(char type, char strength, char size)
     {
       setCoffeeType(type);
       setCoffeeStrength(strength);
       setCupSize(size);
     }
+
     void setCoffeeType(char num)
     {
       if (num == '1' || num == '2')
@@ -21,10 +20,12 @@ class CoffeeOrder : public Message {
       else
         std::cout << "Coffee Type not valid" << std::endl;
     }
+
     char getCoffeeType()
     {
       return coffeeType_;
     }
+
     void setCoffeeStrength(char strength)
     {
       if (strength > 0 && strength <= 3)
@@ -32,13 +33,15 @@ class CoffeeOrder : public Message {
       else
         std::cout << "Coffee strength not valid" << std::endl;
     }
+
     char getCoffeeStrength()
     {
       return coffeeStrength_;
     }
+
     void setCupSize(char size)
     {
-      if (size> 0 && strength <= 3)
+      if (size> 0 && size <= 3)
         cupSize_=((int)size-48+1)*10;//cupSize in cl achieved
       else
         std::cout << "Cup size not valid" << std::endl;
@@ -55,15 +58,16 @@ private:
     int cupSize_ = 0;
 };
 
+enum Status{
+  IDLE, BREWING, ERROR
+};
+
 struct status: public osapi::Message
  {
-   enum status{
-     IDLE, BREWING, ERROR
-   }
-   status coffeeStatus_;
- }
+   Status coffeeStatus_=IDLE;
+ };
 
 enum
 {
-
+  ID_COFFEE_ORDER_IND, ID_STATUS_IND
 };
