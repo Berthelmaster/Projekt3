@@ -36,8 +36,8 @@ switch(cupSize) {
         break;
 }
 
-  
-  
+
+
 }
 
 
@@ -117,7 +117,7 @@ function clickOnOrderCoffee()
   writeToScreen(message);
   writeToScreen("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
   doSend("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
-  } 
+  }
   else alert("No more clean filters");
 
 if (filter>=4) {
@@ -131,8 +131,7 @@ if (filter>=4) {
 
 function setBrewTime()
 {
-  brewTime = document.getElementById("brewHour").value;
-  brewTime = brewTime + "-" + document.getElementById("brewDate").value;
+  brewTime = document.getElementById("brewHour").value + "-" + document.getElementById("brewDate").value;
 
   var message = "You ordered coffee #" + String(coffeeselect) + ", Strength: " + String(coffeeStrength) + ", Cup size: " + String(cupSize);
   writeToScreen(message);
@@ -145,7 +144,7 @@ function setTime()
  var today = new Date();
  var dd = today.getDate(); //day
  var mm = today.getMonth()+1; //January is 0
- var yyyy = today.getFullYear(); 
+ var yyyy = today.getFullYear();
 
  if (dd<10) {
   dd="0"+dd;
@@ -155,6 +154,6 @@ function setTime()
  }
 
  document.getElementById("brewDate").value=String(yyyy+"-"+mm+"-"+dd);
- 
+
 
 }
