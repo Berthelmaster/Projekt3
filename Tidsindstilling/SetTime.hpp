@@ -28,11 +28,16 @@ string getTimeString()
   std::string strUser = strStream.str();
   // Close file
   Fileloc.close();
+
+  return getTimeString;
 }
 
 string getCurrentTime()
 {
 
+
+
+return getCurrentTime;
 }
 
 bool compareTime(string getTimeString, string getCurrentTime)
