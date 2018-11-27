@@ -1,6 +1,6 @@
 
 # Quick and dirty (does not handle changes in h-file)
-SRCS=traadkommunikationtest.cpp ConvertToGram.cpp UART.cpp ConvertToGram.cpp Messages.cpp T1_webApp.cpp T2_coffeeOrderHandler.cpp T3_localUI.cpp T4_timeSetting.cpp UART.cpp
+SRCS=traadkommunikationtest.cpp ConvertToGram.cpp UART.cpp Messages.cpp T1_webApp.cpp T2_coffeeOrderHandler.cpp T3_localUI.cpp T4_timeSetting.cpp
 OBJS=$(SRCS:.cpp=.o)
 DEPS=${SRCS:.cpp=.d}
 BASEPATH=..

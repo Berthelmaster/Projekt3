@@ -11,7 +11,7 @@ class T4_timeSetting :public osapi::ThreadFunctor
 public:
   T4_timeSetting(osapi::MsgQueue *T2msgQ);
   virtual void run();
-  void sendCoffeeOrder(int, int, int);
+  void sendCoffeeOrder(int, char, char);
 
 private:
   osapi::MsgQueue*  T2Mq_;

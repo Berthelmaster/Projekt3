@@ -34,7 +34,7 @@ void T1_webApp::handler(osapi::Message* msg, unsigned long id)
   }
 }
 
-void T1_webApp::sendCoffeeOrder(char size, char type, char strength)
+void T1_webApp::sendCoffeeOrder(int size, char type, char strength)
 {
   CoffeeOrder* ind = new CoffeeOrder(size, type, strength);
   T2Mq_->send(ID_COFFEE_ORDER_IND, ind);

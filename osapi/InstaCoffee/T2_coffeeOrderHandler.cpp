@@ -31,9 +31,10 @@ void T2_coffeOrderHandler::run()
 
 void T2_coffeOrderHandler::sendStatus()
 {
-  do{
+  status* ind=new status;
+  //do{
     char id = UART_.receiveStatus();
-    status* ind=new status;
+
     switch(id)
     {
       case('1'):
@@ -53,8 +54,8 @@ void T2_coffeOrderHandler::sendStatus()
       break;
     }
     T1Mq_->send(ID_STATUS_IND, ind);
-  }
-  while(ind->status!=IDLE);
+  //}
+  //while(ind->status!=IDLE);
 }
 
 void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)
@@ -64,9 +65,9 @@ void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)
     case(ID_COFFEE_ORDER_IND):
     {
       CoffeeOrder* ind = static_cast<CoffeeOrder*>(msg);
-      UART_.sendCoffeOrder(filter, ind->cupSize_, ind->coffeeType_, grams_.getGrams(ind->cupSize_, ind->coffeeStrength_));
-      if(++filter>=8)
-        filter=0;
+      UART_.sendCoffeOrder(filter_, ind->getCupSize(), ind->getCoffeeType(), grams_.getGrams(ind->getCupSize(), ind->getCoffeeStrength()));
+      if(++filter_>=8)
+        filter_=0;
       sendStatus();
     }
     break;
