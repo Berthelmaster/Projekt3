@@ -27,4 +27,5 @@ private:
   int fd; //File desciptor
   char buf[10];
   struct termios options;
+  pthread_mutex_t m_;
 };

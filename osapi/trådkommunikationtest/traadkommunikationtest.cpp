@@ -6,14 +6,14 @@
 
 int main (int argc, char *argv[]){
 
-T2_coffeOrderHandler cof(10);
-T1_webApp wa(10, cof.getmsgQ());
-T3_LocalUI lui(cof.getmsgQ());
-T4_timeSetting ts(cof.getmsgQ());
+T2_coffeOrderHandler coh(10);
+T1_webApp wa(10, coh.getmsgQ());
+T3_LocalUI lui(coh.getmsgQ());
+T4_timeSetting ts(coh.getmsgQ());
 
-cof.setmsgQ(wa.getmsgQ());
+coh.setmsgQ(wa.getmsgQ());
 
-osapi::Thread t2(&cof);
+osapi::Thread t2(&coh);
 osapi::Thread t1(&wa);
 osapi::Thread t3(&lui);
 osapi::Thread t4(&ts);

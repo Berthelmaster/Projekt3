@@ -67,16 +67,20 @@ void UART::writeChar(char message)
 
 char UART::receiveStatus()
 {
+  pthread_mutex_lock(&m_);
   char status;
   writeChar('%');
   writeByte(0x0);
   status = readChar();
   return status;
+  pthread_mutex_unlock(&m_);
 }
 
 void UART::sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount)
 {
+  pthread_mutex_lock(&m_);
   writeChar('$');
+
 
   // Start filling water tank
   writeByte(0x5);
@@ -97,6 +101,7 @@ void UART::sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char
   writeChar('!');
   writeByte(0x1);
   writeByte(0x0);
+  pthread_mutex_unlock(&m_);
 }
 
 UART::~UART()

@@ -19,7 +19,7 @@ osapi::MsgQueue* T2_coffeOrderHandler::getmsgQ()
 
 void T2_coffeOrderHandler::run()
 {
-  sendStatus();
+  //sendStatus();
   while(true)
   {
     unsigned long id;
@@ -32,9 +32,11 @@ void T2_coffeOrderHandler::run()
 void T2_coffeOrderHandler::sendStatus()
 {
   status* ind=new status;
-  //do{
-    char id = UART_.receiveStatus();
+  //ind->coffeeStatus_=IDLE;
+  do{
 
+    char id = UART_.receiveStatus();
+    //  char id='2';
     switch(id)
     {
       case('1'):
@@ -48,14 +50,17 @@ void T2_coffeOrderHandler::sendStatus()
       }
       break;
       case('3'):
+
       {
         ind->coffeeStatus_=ERROR;
       }
       break;
     }
-    T1Mq_->send(ID_STATUS_IND, ind);
-  //}
-  //while(ind->status!=IDLE);
+    if(ind->coffeeStatus_!=status_){
+      T1Mq_->send(ID_STATUS_IND, ind);
+      status_=ind->coffeeStatus_;
+    }
+  } while(ind->coffeeStatus_!=IDLE);
 }
 
 void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)
@@ -65,7 +70,11 @@ void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)
     case(ID_COFFEE_ORDER_IND):
     {
       CoffeeOrder* ind = static_cast<CoffeeOrder*>(msg);
-      UART_.sendCoffeOrder(filter_, ind->getCupSize(), ind->getCoffeeType(), grams_.getGrams(ind->getCupSize(), ind->getCoffeeStrength()));
+      std::cout<<filter_<<endl;
+      std::cout<< ind->getCupSize()<<endl;
+      std::cout<< ind->getCoffeeType()<<std::endl;
+      std::cout<< grams_.getGrams(ind->getCupSize(), ind->getCoffeeStrength())<<std::endl;
+      //UART_.sendCoffeOrder(filter_, ind->getCupSize(), ind->getCoffeeType(), grams_.getGrams(ind->getCupSize(), ind->getCoffeeStrength()));
       if(++filter_>=8)
         filter_=0;
       sendStatus();
