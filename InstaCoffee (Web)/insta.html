@@ -7,14 +7,16 @@
 </head>
 <body>
 
- 
-<h1>InstaCoffee</h1>
 
-<h3>1. Choose your coffee</h2>
-	<img src="styles/merrild.png" onclick="clickOnCoffee1()" id="merrild" >
-	<img src="styles/peterlarsen.png" onclick="clickOnCoffee2()" id="peterlarsen" >
+<h1>Coffee character</h1> 
+<h2>#SvaretPåDineBønner</h2>
 
-<h3>2. Choose coffee strength</h2>
+<h3>1. Choose your coffee</h3>
+
+	<img src="styles/merrild.png" onclick="clickOnCoffee(1)" id="merrild" >
+	<img src="styles/peterlarsen.png" onclick="clickOnCoffee(2)" id="peterlarsen" >
+
+<h3>2. Choose coffee strength</h3>
 	<img src="styles/coffeeBeans.png" name="bonner">
 
 	<div class="slideStrength">
@@ -22,7 +24,7 @@
 	  <p>Coffeestrength: <span id="strengthslider"></span></p>
 	</div>
 
-<h3>3. Choose cup size</h2>
+<h3>3. Choose cup size</h3>
 	<img src="styles/CupPic.png" name="cup">
 
 	<div class="slideSize">
@@ -30,7 +32,7 @@
 	  <p>Cup size: <span id="cupsizeslider"></span></p>
 	</div>
 
-<h3>4. Choose brew time (Optional)</h2>
+<h3>4. Choose brew time (Optional)</h3>
 
 	<div>
 	<input type="time" id="brewHour">
@@ -41,11 +43,14 @@
 	<button type="button" onclick="setBrewTime()">Set brew time</button>
 	</div>
 
+<div class="fixed">
+	<p name="status" class="box">Status:</p><p id="status" class="box">Ready</p>
+	<div id="output"></div>
+</div>
 
-<p name="status">Status:</p><p id="status">Ready</p>
 <p class="clearfix"></p> 
 
-<div id="output"></div>
+
 
 <script src="myscripts.js"></script>
 </body>

@@ -11,5 +11,6 @@ function clickOnLogin()
  	console.log("Korrekt kode")
  	window.location = "insta.html";
   }
+  else alert("Den indtastede adgangskode er ikke gyldig");
   console.log("clickOnLogin kaldt")
 }

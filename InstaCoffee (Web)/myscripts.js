@@ -36,8 +36,8 @@ switch(cupSize) {
         break;
 }
 
-
-
+  
+  
 }
 
 
@@ -96,18 +96,18 @@ function writeToScreen(message)
 
 window.addEventListener("load", init, false);
 
-function clickOnCoffee1()
+function clickOnCoffee(select)
 {
-  coffeeselect = 1;
-  document.getElementById("merrild").style.border = "3px solid green";
-  document.getElementById("peterlarsen").style.border = "3px dotted black";
-}
-
-function clickOnCoffee2()
-{
-  coffeeselect = 2;
-  document.getElementById("peterlarsen").style.border = "3px solid green";
-  document.getElementById("merrild").style.border = "3px dotted black";
+  coffeeselect = select;
+  if (select==1) {
+    document.getElementById("merrild").style.border = "3px solid green";
+    document.getElementById("peterlarsen").style.border = "3px dotted black";
+  }
+  if (select==2) {
+    document.getElementById("peterlarsen").style.border = "3px solid green";
+    document.getElementById("merrild").style.border = "3px dotted black";  
+  }
+  
 }
 
 function clickOnOrderCoffee()
@@ -117,7 +117,7 @@ function clickOnOrderCoffee()
   writeToScreen(message);
   writeToScreen("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
   doSend("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
-  }
+  } 
   else alert("No more clean filters");
 
 if (filter>=4) {
@@ -144,7 +144,7 @@ function setTime()
  var today = new Date();
  var dd = today.getDate(); //day
  var mm = today.getMonth()+1; //January is 0
- var yyyy = today.getFullYear();
+ var yyyy = today.getFullYear(); 
 
  if (dd<10) {
   dd="0"+dd;
@@ -154,6 +154,6 @@ function setTime()
  }
 
  document.getElementById("brewDate").value=String(yyyy+"-"+mm+"-"+dd);
-
+ 
 
 }
