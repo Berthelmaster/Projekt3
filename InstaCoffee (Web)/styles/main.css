@@ -1,37 +1,40 @@
-/*Slider*/
+/*Headers*/
 
-.slider {
-    -webkit-appearance: none;
-    width: 25%;
-    height: 10px;
-    border-radius: 5px;   
-    background: #d3d3d3;
-    outline: none;
-    opacity: 0.7;
-    -webkit-transition: .2s;
-    transition: opacity .2s;
+h1 {
+    font-family: Georgia, serif;
+    font-size: 2.5rem;
+    color: #000000;
+    text-shadow: 1px 1px white;
 }
 
-.slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 25px;
-    height: 25px;
-    border-radius: 50%; 
-    background: #823636;
-    cursor: pointer;
+h2 {
+    font-family: "Comic Sans MS", cursive, sans-serif;
+    font-size: 1rem;
+    color: #FEDA77;
+    text-shadow: 1px 1px black;
+    margin-bottom: 5rem;
+
 }
 
-.slider::-moz-range-thumb {
-    width: 25px;
-    height: 25px;
-    border-radius: 50%;
-    background: #823636;
-    cursor: pointer;
+h3 {
+    font-family: Georgia, serif;
+    color: #dbdbdb;
+    text-shadow: 1px 1px black;
+    background-color: none;
+    margin: 30px;
 }
-/*End of slider*/
+
+body {
+    text-align: center;
+    background: linear-gradient(to bottom left, rgb(81,91,212), rgb(129,52,175),rgb(221,42,123), rgb(254,218,119), rgb(245,133,41));
+}
+
 
 /*Pictures*/
+img{
+    border: 3px solid black;
+}
+
 img[name="bonner"]{
     width: 200px; 
     height: auto;
@@ -60,23 +63,67 @@ img[id="merrild"]{
 
 p[name="status"]{
     display: block;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 1rem;
     margin-top: 1em;
     margin-bottom: 1em;
     margin-left: 0;
     margin-right: 0;
-    float: left;
 }
 
-p[id="status"]{
+p[id="status"]{ 
     display: block;
+    font-family: "Arial Black", Gadget, sans-serif;
+    font-size: 1rem;
     margin-top: 1em;
     margin-bottom: 1em;
-    margin-left: 2em;
+    margin-left: 0;
     margin-right: 0;
-    float: left;
     color: green;
+}
+
+div.fixed {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 12%;
+    background: #FEDA77;
+    border: 3px solid #4c4c4c;
 }
 
 .clearfix{
     clear:both
 }
+
+/*Slider*/
+
+.slider {
+    -webkit-appearance: none;
+    width: 25%;
+    height: 10px;
+    border-radius: 5px;   
+    background: #efefef;
+    outline: none;
+    opacity: 0.7;
+    -webkit-transition: .2s;
+    transition: opacity .2s;
+}
+
+.slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 25px;
+    height: 25px;
+    border-radius: 50%; 
+    background: #4f2929;
+    cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+    width: 25px;
+    height: 25px;
+    border-radius: 50%;
+    background: #000000;
+    cursor: pointer;
+}
+/*End of slider*/
