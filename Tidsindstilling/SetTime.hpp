@@ -14,7 +14,7 @@
 #include <string>
 #include <sstream>
 
-string getTimeString()
+std::string getTimeString()
 {
   // Load User File
   std::ifstream Fileloc;
@@ -29,23 +29,26 @@ string getTimeString()
   // Close file
   Fileloc.close();
 
-  return getTimeString;
+// Return value
+  return strUser.c_str();
 }
 
-string getCurrentTime()
+std::string getCurrentTime()
 {
+  time_t rawtime;
 
+  struct tm * timeinfo;
 
+  char buffer[80];
 
-return getCurrentTime;
-}
+  time(&rawtime);
 
-bool compareTime(string getTimeString, string getCurrentTime)
-{
+  timeinfo = localtime(&rawtime);
 
-}
+  strftime(buffer, sizeof(buffer),"%H%M\n", timeinfo);
 
-void deleteTimefromTxt()
-{
+  std::string str(buffer);
 
+// Return value
+  return str.c_str();
 }
