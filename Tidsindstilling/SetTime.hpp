@@ -2,6 +2,7 @@
 #include <fstream>
 #include <string>
 #include <unistd.h>
+#include <cstring>
 
 std::string getTimeString()
 {
@@ -14,7 +15,7 @@ std::string getTimeString()
   {
     while(std::getline(TimeFile, line))
     {
-      std::cout << line.c_str() << std::endl;
+      //std::cout << line.c_str() << std::endl;
       sleep(1);
     }
     TimeFile.close();
@@ -39,7 +40,7 @@ std::string getCurrentTime()
 
   timeinfo = localtime(&rawtime);
 
-  strftime(buffer, sizeof(buffer),"%H%M\n", timeinfo);
+  strftime(buffer, sizeof(buffer),"%H%M", timeinfo);
 
   std::string str(buffer);
 
@@ -49,7 +50,9 @@ std::string getCurrentTime()
 
 bool compareTime(std::string textFile, std::string RPITime)
 {
-  if (strcmp(textFile, RPITime) == 0)
+  std::cout << textFile.c_str() << std::endl;
+  std::cout << RPITime.c_str() << std::endl;
+  if (strcmp(textFile.c_str(), RPITime.c_str()) == 0)
 	{
 		std::cout << "Time is identical, Begin" << std::endl;
     return true;
