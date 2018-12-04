@@ -7,7 +7,7 @@
 
 int main (int argc, char *argv[]){
 
-UART* u;
+UART* u =new UART;
 
 T2_coffeOrderHandler coh(10, u);
 T1_webApp wa(10, coh.getmsgQ());

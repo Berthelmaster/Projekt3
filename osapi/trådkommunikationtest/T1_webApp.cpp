@@ -27,9 +27,9 @@ void T1_webApp::handler(osapi::Message* msg, unsigned long id)
   {
     case(ID_STATUS_IND):
     {
-      status* ind = static_cast<status*>(msg);
+      //status* ind = static_cast<status*>(msg);
       //opdater status
-      
+
     }
     break;
   }
