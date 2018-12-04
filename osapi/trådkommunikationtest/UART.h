@@ -19,7 +19,7 @@ public:
   void writeByte(char message);
   void writeChar(char message);
   char receiveStatus();
-  void sendCoffeOrder(char filter, int waterAmount, char CoffeeNumber, int coffeeAmount);
+  void sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount);
   ~UART();
 private:
   void open_port();
@@ -27,4 +27,5 @@ private:
   int fd; //File desciptor
   char buf[10];
   struct termios options;
+  pthread_mutex_t m_;
 };
