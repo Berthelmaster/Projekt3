@@ -1,36 +1,31 @@
-#include <stdio.h>
 #include <iostream>
-#include <pthread.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <stdlib.h>
-#include <time.h>
 #include <fstream>
-#include <streambuf>
-#include <wchar.h>
-#include <iostream>
-#include <string.h>
-#include <ctime>
 #include <string>
-#include <sstream>
+#include <unistd.h>
+#include <cstring>
 
 std::string getTimeString()
 {
-  // Load User File
-  std::ifstream Fileloc;
-  // Open file "Filename"
-  Fileloc.open("TimefromUser.txt");
-  // Define stringstream
-  std::stringstream strStream;
-  // Read from file using rdbuf()
-  strStream << Fileloc.rdbuf();
-  // set string equals to strUser
-  std::string strUser = strStream.str();
-  // Close file
-  Fileloc.close();
+  std::fstream TimeFile;
+  std::string line;
 
-// Return value
-  return strUser.c_str();
+  TimeFile.open("TimefromUser.txt");
+
+  if(TimeFile.is_open())
+  {
+    while(std::getline(TimeFile, line))
+    {
+      //std::cout << line.c_str() << std::endl;
+      sleep(1);
+    }
+    TimeFile.close();
+  }
+  else
+  {
+    std::cout << "Timefile is not open" << std::endl;
+  }
+
+  return line.c_str();
 }
 
 std::string getCurrentTime()
@@ -45,10 +40,26 @@ std::string getCurrentTime()
 
   timeinfo = localtime(&rawtime);
 
-  strftime(buffer, sizeof(buffer),"%H%M\n", timeinfo);
+  strftime(buffer, sizeof(buffer),"%H%M", timeinfo);
 
   std::string str(buffer);
 
 // Return value
   return str.c_str();
+}
+
+bool compareTime(std::string textFile, std::string RPITime)
+{
+  std::cout << textFile.c_str() << std::endl;
+  std::cout << RPITime.c_str() << std::endl;
+  if (strcmp(textFile.c_str(), RPITime.c_str()) == 0)
+	{
+		std::cout << "Time is identical, Begin" << std::endl;
+    return true;
+	}
+  else
+  {
+    std::cout << "Time is not identical, try again" << std::endl;
+    return false;
+  }
 }
