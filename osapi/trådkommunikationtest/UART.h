@@ -19,7 +19,7 @@ public:
   void writeByte(char message);
   void writeChar(char message);
   char receiveStatus();
-  void sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount);
+  void sendCoffeOrder(char filter, int waterAmount, char CoffeeNumber, int coffeeAmount);
   ~UART();
 private:
   void open_port();

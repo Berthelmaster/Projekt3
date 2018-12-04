@@ -29,6 +29,7 @@ void T1_webApp::handler(osapi::Message* msg, unsigned long id)
     {
       status* ind = static_cast<status*>(msg);
       //opdater status
+      
     }
     break;
   }

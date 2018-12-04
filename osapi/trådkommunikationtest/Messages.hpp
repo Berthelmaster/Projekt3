@@ -46,12 +46,15 @@ class CoffeeOrder : public osapi::Message {
       else
         std::cout << "Cup size not valid" << std::endl;
     }
+
     int getCupSize()
     {
       return cupSize_;
     }
+
     ~CoffeeOrder()
     {}
+
 private:
     char coffeeType_ = '0';
     char coffeeStrength_ = '0';

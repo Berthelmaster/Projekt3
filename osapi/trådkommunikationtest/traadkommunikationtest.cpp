@@ -4,16 +4,19 @@
 #include "T4_timeSetting.hpp"
 
 
+
 int main (int argc, char *argv[]){
 
-T2_coffeOrderHandler cof(10);
-T1_webApp wa(10, cof.getmsgQ());
-T3_LocalUI lui(cof.getmsgQ());
-T4_timeSetting ts(cof.getmsgQ());
+UART* u;
 
-cof.setmsgQ(wa.getmsgQ());
+T2_coffeOrderHandler coh(10, u);
+T1_webApp wa(10, coh.getmsgQ());
+T3_LocalUI lui(coh.getmsgQ(), u);
+T4_timeSetting ts(coh.getmsgQ());
 
-osapi::Thread t2(&cof);
+coh.setmsgQ(wa.getmsgQ());
+
+osapi::Thread t2(&coh);
 osapi::Thread t1(&wa);
 osapi::Thread t3(&lui);
 osapi::Thread t4(&ts);

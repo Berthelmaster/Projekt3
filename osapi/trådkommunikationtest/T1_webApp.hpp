@@ -12,7 +12,7 @@ public:
   T1_webApp(int size, osapi::MsgQueue *T2msgQ);
   virtual void run();
   void handler(osapi::Message* msg, unsigned long id);
-  void sendCoffeeOrder(char, char, char);
+  void sendCoffeeOrder(int, char, char);
   osapi::MsgQueue* getmsgQ();
 
 

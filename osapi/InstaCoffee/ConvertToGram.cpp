@@ -10,6 +10,6 @@ int ConvertToGram::getGrams(int size, char strength)
   //en mild kop kaffe defineres til 3 gram pr. 100 gram
   //en mellem kop kaffe defineres til 3.5 gram pr. 100 gram
   //en stærk kop kaffe defineres til 4 gram pr. 100 gram
-  grams_=strength_*((size/10)+1); //der ganges med size+1, der svarer til antal 100ml.
+  grams_=strength_*((size/10)); //der ganges med size+1, der svarer til antal 100ml.
   return (int)grams_;
 }

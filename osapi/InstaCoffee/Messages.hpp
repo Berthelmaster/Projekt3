@@ -6,7 +6,7 @@
 
 class CoffeeOrder : public osapi::Message {
   public:
-    CoffeeOrder(char type, char strength, char size)
+    CoffeeOrder(char size, char type, char strength)
     {
       setCoffeeType(type);
       setCoffeeStrength(strength);
@@ -28,7 +28,7 @@ class CoffeeOrder : public osapi::Message {
 
     void setCoffeeStrength(char strength)
     {
-      if (strength > 0 && strength <= 3)
+      if (strength > '0' && strength <= '3')
         coffeeStrength_ = strength;
       else
         std::cout << "Coffee strength not valid" << std::endl;
@@ -41,17 +41,20 @@ class CoffeeOrder : public osapi::Message {
 
     void setCupSize(char size)
     {
-      if (size> 0 && size <= 3)
+      if (size> '0' && size <= '3')
         cupSize_=((int)size-48+1)*10;//cupSize in cl achieved
       else
         std::cout << "Cup size not valid" << std::endl;
     }
+
     int getCupSize()
     {
       return cupSize_;
     }
+
     ~CoffeeOrder()
     {}
+
 private:
     char coffeeType_ = '0';
     char coffeeStrength_ = '0';

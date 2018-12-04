@@ -1,11 +1,10 @@
 #include "T2_coffeeOrderHandler.hpp"
 
-T2_coffeOrderHandler::T2_coffeOrderHandler(int size)
+T2_coffeOrderHandler::T2_coffeOrderHandler(int size, UART* u)
 {
-  std::cout<<"tråd 2 kører på klassen T2_coffeeOrderHandler"<<std::endl;
   mq_ = new osapi::MsgQueue(size);
-  //Uartconfig???
-  //other init?
+  UART_ = u;
+  //other init
 }
 
 void T2_coffeOrderHandler::setmsgQ(osapi::MsgQueue *msgQ)
@@ -21,6 +20,7 @@ osapi::MsgQueue* T2_coffeOrderHandler::getmsgQ()
 void T2_coffeOrderHandler::run()
 {
   //sendStatus();
+  UART_->sendCoffeOrder(filter_, 20, '1', 13);
   while(true)
   {
     unsigned long id;
@@ -33,12 +33,11 @@ void T2_coffeOrderHandler::run()
 void T2_coffeOrderHandler::sendStatus()
 {
   status* ind=new status;
-  ind->coffeeStatus_=IDLE;
-  T1Mq_->send(ID_STATUS_IND, ind);
-  //do{
-  /*
-    char id = UART_.receiveStatus();
+  //ind->coffeeStatus_=IDLE;
+  do{
 
+    char id = UART_->receiveStatus();
+    //  char id='2';
     switch(id)
     {
       case('1'):
@@ -52,15 +51,17 @@ void T2_coffeOrderHandler::sendStatus()
       }
       break;
       case('3'):
+
       {
         ind->coffeeStatus_=ERROR;
       }
       break;
     }
-    T1Mq_->send(ID_STATUS_IND, ind);
-  //}
-  //while(ind->status!=IDLE);
-  */
+    if(ind->coffeeStatus_!=status_){
+      T1Mq_->send(ID_STATUS_IND, ind);
+      status_=ind->coffeeStatus_;
+    }
+  } while(ind->coffeeStatus_!=IDLE);
 }
 
 void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)

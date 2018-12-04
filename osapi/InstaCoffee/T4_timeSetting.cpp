@@ -2,6 +2,7 @@
 
 T4_timeSetting::T4_timeSetting(osapi::MsgQueue *T2msgQ)
 {
+  std::cout<<"tråd 4 kører på klassen T4_timeSetting"<<std::endl;
     T2Mq_=T2msgQ;
 }
 
