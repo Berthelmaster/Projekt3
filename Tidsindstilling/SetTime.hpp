@@ -3,11 +3,18 @@
 #include <string>
 #include <unistd.h>
 #include <cstring>
+#include <vector>
 
 std::string getTimeString()
 {
+
+  //Define variables
+  int const size = 1024;
   std::fstream TimeFile;
   std::string line;
+  std::string MyLine[size];
+  std::string* myPointer = MyLine;
+
 
   TimeFile.open("TimefromUser.txt");
 
@@ -15,8 +22,13 @@ std::string getTimeString()
   {
     while(std::getline(TimeFile, line))
     {
+        int i;
+        MyLine[i] = line;
+        std::cout << MyLine[i] << std::endl;
+        sleep(1);
+        i++;
+      //std::cout << MyLine[2] << std::endl;
       //std::cout << line.c_str() << std::endl;
-      sleep(1);
     }
     TimeFile.close();
   }
@@ -25,7 +37,19 @@ std::string getTimeString()
     std::cout << "Timefile is not open" << std::endl;
   }
 
-  return line.c_str();
+  std::cout << &MyLine[0] << std::endl;
+  std::cout << &MyLine[1] << std::endl;
+  std::cout << &MyLine[2] << std::endl;
+  std::cout << &MyLine[3] << std::endl;
+  std::cout << &MyLine[4] << std::endl;
+  std::cout << MyLine[0] << std::endl;
+  std::cout << MyLine[1] << std::endl;
+  std::cout << MyLine[2] << std::endl;
+  std::cout << MyLine[3] << std::endl;
+  std::cout << MyLine[4] << std::endl;
+  std::cout << myPointer << "Yoooo" << std::endl;
+
+  return *myPointer;
 }
 
 std::string getCurrentTime()
@@ -40,7 +64,7 @@ std::string getCurrentTime()
 
   timeinfo = localtime(&rawtime);
 
-  strftime(buffer, sizeof(buffer),"%H%M", timeinfo);
+  strftime(buffer, sizeof(buffer),"%H:%M-%Y-%m-%d", timeinfo);
 
   std::string str(buffer);
 
@@ -54,12 +78,10 @@ bool compareTime(std::string textFile, std::string RPITime)
   std::cout << RPITime.c_str() << std::endl;
   if (strcmp(textFile.c_str(), RPITime.c_str()) == 0)
 	{
-		std::cout << "Time is identical, Begin" << std::endl;
     return true;
 	}
   else
   {
-    std::cout << "Time is not identical, try again" << std::endl;
     return false;
   }
 }
