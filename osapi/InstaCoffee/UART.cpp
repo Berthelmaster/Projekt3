@@ -74,10 +74,8 @@ char UART::receiveStatus()
   return status;
 }
 
-void UART::sendCoffeOrder(char filter, int waterAmount, char CoffeeNumber, int coffeeAmount)
+void UART::sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount)
 {
-  std::cout << filter<<waterAmount<<CoffeeNumber<<coffeeAmount << std::endl;
-  /*
   writeChar('$');
 
   // Start filling water tank
@@ -99,7 +97,6 @@ void UART::sendCoffeOrder(char filter, int waterAmount, char CoffeeNumber, int c
   writeChar('!');
   writeByte(0x1);
   writeByte(0x0);
-  */
 }
 
 UART::~UART()

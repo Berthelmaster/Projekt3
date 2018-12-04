@@ -1,11 +1,9 @@
 #include "T3_localUI.hpp"
 
-T3_LocalUI::T3_LocalUI(osapi::MsgQueue *T2msgQ, UART* u)
+T3_LocalUI::T3_LocalUI(osapi::MsgQueue *T2msgQ)
 {
   std::cout<<"tråd 3 kører på klassen T3_localUI"<<std::endl;
   T2Mq_=T2msgQ;
-  UART_=u;
-
 }
 
 void T3_LocalUI::run()

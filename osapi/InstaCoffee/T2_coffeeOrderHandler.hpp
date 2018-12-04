@@ -11,7 +11,7 @@
 class T2_coffeOrderHandler :public osapi::ThreadFunctor
 {
 public:
-  T2_coffeOrderHandler(int size, UART* u);
+  T2_coffeOrderHandler(int size);
   virtual void run();
   void handler(osapi::Message* msg, unsigned long id);
   void sendStatus();
@@ -21,8 +21,8 @@ public:
 private:
   osapi::MsgQueue*  mq_;
   osapi::MsgQueue*  T1Mq_;
-  UART*              UART_;
+  UART              UART_;
   ConvertToGram     grams_;
-  int               filter_='0';
+  int               filter_=0;
   Status            status_;
 };

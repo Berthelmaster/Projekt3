@@ -4,14 +4,11 @@
 #include "T4_timeSetting.hpp"
 
 
-
 int main (int argc, char *argv[]){
 
-UART* u;
-
-T2_coffeOrderHandler coh(10, u);
+T2_coffeOrderHandler coh(10);
 T1_webApp wa(10, coh.getmsgQ());
-T3_LocalUI lui(coh.getmsgQ(), u);
+T3_LocalUI lui(coh.getmsgQ());
 T4_timeSetting ts(coh.getmsgQ());
 
 coh.setmsgQ(wa.getmsgQ());

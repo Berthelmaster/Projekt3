@@ -6,17 +6,13 @@
 #include <string>
 #include <osapi/Utility.hpp>
 
-class T1_webApp :public osapi::ThreadFunctor
+class T4_timeSetting :public osapi::ThreadFunctor
 {
 public:
-  T1_webApp(int size, osapi::MsgQueue *T2msgQ);
+  T4_timeSetting(osapi::MsgQueue *T2msgQ);
   virtual void run();
-  void handler(osapi::Message* msg, unsigned long id);
   void sendCoffeeOrder(int, char, char);
-  osapi::MsgQueue* getmsgQ();
-
 
 private:
-  osapi::MsgQueue*  mq_;
   osapi::MsgQueue*  T2Mq_;
 };
