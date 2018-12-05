@@ -15,6 +15,7 @@ public:
   void handler(osapi::Message* msg, unsigned long id);
   void sendCoffeeOrder(char, char, char);
   MsgQueue* getmsgQ();
+  void getStatus();
 
 
 private:

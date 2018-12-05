@@ -20,6 +20,8 @@ osapi::MsgQueue* T2_coffeOrderHandler::getmsgQ()
 void T2_coffeOrderHandler::run()
 {
   status* ind=new status;
+  ind->coffeeStatus_=IDLE;
+  std::cout <<"id: "<< ind->coffeeStatus_ << '\n';
   ind->coffeeStatus_=status_.coffeeStatus_;
   T1Mq_->send(ID_STATUS_IND, ind);
   while(true)
