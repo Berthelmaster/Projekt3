@@ -10,7 +10,7 @@ CXXFLAGS=-ggdb -O0
 LIBPATH=$(BASEPATH)/lib/host/debug
 else
 CXXFLAGS=-O2
-LIBPATH=$(BASEPATH)/lib/target/release
+LIBPATH=$(BASEPATH)/lib/host/release
 endif
 
 ifeq (${ARCH},host)

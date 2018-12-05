@@ -73,8 +73,9 @@ char UART::receiveStatus()
   writeChar('%');
   writeByte(0x0);
   status = readChar();
-  return status;
   pthread_mutex_unlock(&m_);
+  return status;
+
 }
 
 void UART::sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount)

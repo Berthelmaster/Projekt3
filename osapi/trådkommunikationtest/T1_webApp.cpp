@@ -13,16 +13,20 @@ osapi::MsgQueue* T1_webApp::getmsgQ()
 
 void T1_webApp::run()
 {
+  sendCoffeeOrder('1', '2', '2');
   //Like whatever code u need
-
-  unsigned long id;
-  osapi::Message* msg=mq_->receive(id);
-  handler(msg, id);
-  delete msg;
+  std::cout << "run" << '\n';
+  while(true){
+    unsigned long id;
+    osapi::Message* msg=mq_->receive(id);
+    handler(msg, id);
+    delete msg;
+  }
 }
 
 void T1_webApp::handler(osapi::Message* msg, unsigned long id)
 {
+  std::cout << "handlerT1" << '\n';
   switch(id)
   {
     case(ID_STATUS_IND):
@@ -35,8 +39,9 @@ void T1_webApp::handler(osapi::Message* msg, unsigned long id)
   }
 }
 
-void T1_webApp::sendCoffeeOrder(int size, char type, char strength)
+void T1_webApp::sendCoffeeOrder(char size, char type, char strength)
 {
+  std::cout << "send" << '\n';
   CoffeeOrder* ind = new CoffeeOrder(size, type, strength);
   T2Mq_->send(ID_COFFEE_ORDER_IND, ind);
 }

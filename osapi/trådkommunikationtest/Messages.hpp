@@ -62,7 +62,7 @@ private:
 };
 
 enum Status{
-  IDLE, BREWING, ERROR
+  IDLE='1', BREWING='2', ERROR='3'
 };
 
 struct status: public osapi::Message

@@ -23,6 +23,6 @@ private:
   osapi::MsgQueue*  T1Mq_;
   UART*              UART_;
   ConvertToGram     grams_;
-  int               filter_='0';
-  Status            status_;
+  char               filter_='0';
+  status            status_;
 };
