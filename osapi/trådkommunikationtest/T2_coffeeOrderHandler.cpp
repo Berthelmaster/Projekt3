@@ -19,10 +19,6 @@ osapi::MsgQueue* T2_coffeOrderHandler::getmsgQ()
 
 void T2_coffeOrderHandler::run()
 {
-  status* ind=new status;
-  ind->coffeeStatus_=status_.coffeeStatus_;
-  T1Mq_->send(ID_STATUS_IND, ind);
-  while(true)
   {
     unsigned long id;
     osapi::Message* msg=mq_->receive(id);
@@ -33,10 +29,7 @@ void T2_coffeOrderHandler::run()
 
 void T2_coffeOrderHandler::sendStatus()
 {
-  std::cout << "send status" << '\n';
-
-  status* ind=new status;
-  ind->coffeeStatus_=IDLE;
+  /*
   do{
     char id = UART_->receiveStatus();
     //  char id='2';
@@ -64,7 +57,7 @@ void T2_coffeOrderHandler::sendStatus()
       status_.coffeeStatus_=ind->coffeeStatus_;
     }
   } while(ind->coffeeStatus_!=IDLE);
-
+*/
 }
 
 void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)

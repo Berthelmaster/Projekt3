@@ -3,6 +3,8 @@
 #include <osapi/Mutex.hpp>
 #include <osapi/Conditional.hpp>
 #include <osapi/Message.hpp>
+#include <string>
+#include <iostream>
 
 
 class MsgQueue
