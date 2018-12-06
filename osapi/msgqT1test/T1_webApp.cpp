@@ -13,12 +13,13 @@ MsgQueue* T1_webApp::getmsgQ()
 
 void T1_webApp::run()
 {
-  sendCoffeeOrder('1', '2', '2');
+  
   //Like whatever code u need
   while(true)
   {
-    getStatus();
     osapi::sleep(1000);
+    getStatus();
+
   }
 }
 
@@ -34,6 +35,7 @@ void T1_webApp::handler(osapi::Message* msg, unsigned long id)
       status* ind = static_cast<status*>(msg);
       std::cout << ind->coffeeStatus_ <<"status skrives kan ikke korrekt ud"<< '\n';
       //opdater status
+      sendCoffeeOrder('1', '2', '3');
     }
     break;
     default:

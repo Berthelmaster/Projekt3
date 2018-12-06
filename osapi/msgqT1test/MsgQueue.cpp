@@ -12,7 +12,6 @@ void MsgQueue::send(unsigned long id, osapi::Message* msg)
 
   queue_.push_back(Item(id, msg));
   mut_.unlock();
-  reader_.signal();
 }
 
 osapi::Message* MsgQueue::receive(unsigned long &id)
@@ -22,12 +21,10 @@ osapi::Message* MsgQueue::receive(unsigned long &id)
   //while(queue_.size() == 0)
     //reader_.wait(mut_);
   Item i = queue_.front();
-  std::cout << i.id_ << '\n';
   queue_.pop_front();
 
-  writer_.signal();
-  std::cout << i.id_ << '\n';
   mut_.unlock();
+
   id=i.id_;
   return i.msg_;
 }
