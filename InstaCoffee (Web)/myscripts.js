@@ -5,6 +5,7 @@ var coffeeStrength = 2;
 var cupSize = 2;
 var brewTime;
 var filter = 1;
+var Status;
 
 var sliderCoffeeStrength = document.getElementById("myStrength");
 var outputCoffeeStrength = document.getElementById("strengthslider");
@@ -45,9 +46,9 @@ function init()
 {
   output = document.getElementById("output");
   testWebSocket();
+  updateStatus();
 
   //Sættes et andet sted eller tilføj refresh
-  setTime();
 }
 
 function testWebSocket()
@@ -63,6 +64,8 @@ function onOpen(evt)
 {
   writeToScreen("CONNECTED");
   doSend("Connection open");
+  setTime();
+  updateStatus();
 }
 
 function onClose(evt)
@@ -73,7 +76,7 @@ function onClose(evt)
 function onMessage(evt)
 {
   writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
-  //var filter = evt.data
+  //Status = evt.data;
 }
 
 function onError(evt)
@@ -112,20 +115,17 @@ function clickOnCoffee(select)
 
 function clickOnOrderCoffee()
 {
-  if (filter<4){
-  var message = "You ordered coffee #" + String(coffeeselect) + ", Strength: " + String(coffeeStrength) + ", Cup size: " + String(cupSize);
-  writeToScreen(message);
-  writeToScreen("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
-  doSend("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
+  if (Status=='1'){
+    var message = "You ordered coffee #" + String(coffeeselect) + ", Strength: " + String(coffeeStrength) + ", Cup size: " + String(cupSize);
+    writeToScreen(message);
+    writeToScreen("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
+    doSend("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
   } 
-  else alert("No more clean filters");
-
-if (filter>=4) {
-  document.getElementById("status").innerHTML="Out of clean filters";
-  document.getElementById("status").style.color="red";
-  }
-
-  filter++; //SKAL FJERNES KUN TIL TEST
+  else
+  {
+    alert("Coffee Machine not ready!");
+    updateStatus();
+  } 
 }
 
 
@@ -154,6 +154,25 @@ function setTime()
  }
 
  document.getElementById("brewDate").value=String(yyyy+"-"+mm+"-"+dd);
- 
+}
 
+function updateStatus()
+{
+  switch(Status) 
+  {
+    case '1':
+      document.getElementById("status").innerHTML="Ready";
+      document.getElementById("status").style.color="green";
+      break;
+
+    case '2':
+      document.getElementById("status").innerHTML="Brewing!";
+      document.getElementById("status").style.color="#bf420d";
+      break;
+
+    case '3':
+      document.getElementById("status").innerHTML="Out of clean filters";
+      document.getElementById("status").style.color="red";
+      break;
+  }
 }
