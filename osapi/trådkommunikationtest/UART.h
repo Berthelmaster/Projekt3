@@ -10,6 +10,7 @@
 #include <errno.h>   /* Error number definitions */
 #include <termios.h> /* POSIX terminal control definitions */
 #include <iostream>
+#include <osapi/Mutex.hpp>
 
 class UART
 {
@@ -23,9 +24,9 @@ public:
   ~UART();
 private:
   void open_port();
-  int bytes;
-  int fd; //File desciptor
-  char buf[10];
-  struct termios options;
-  pthread_mutex_t m_;
+  int               bytes;
+  int               fd; //File desciptor
+  char              buf[10];
+  struct termios    options;
+  osapi::Mutex      mut_;
 };
