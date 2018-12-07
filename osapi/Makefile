@@ -2,7 +2,7 @@
 
 # Which target? set default
 ifndef TARGET
-TARGET=host
+TARGET=target
 endif
 
 # Debug build? debug is default
@@ -47,7 +47,7 @@ ${OBJ_DEST_DIR}/%.o: %.cpp
 	@echo "Compiling "$<
 	@${CXX} -c $< -o $@ ${CXXFLAGS}
 
-${OBJ_DEST_DIR}/%.d: %.cpp 
+${OBJ_DEST_DIR}/%.d: %.cpp
 	@echo "Generating dependency for $<"
 	@mkdir -p ${OBJ_DEST_DIR}
 	@$(CXX) -MT${OBJ_DEST_DIR}/$(@:.d=.o) -MM $(CXXFLAGS) $^ > $@
@@ -58,7 +58,7 @@ ${DEST_DIR}:
 ${OBJ_DEST_DIR}:
 	@mkdir -p ${OBJ_DEST_DIR}
 
-${DEST_DIR}/libOSApi.a: ${OBJ_DEST_DIR} ${DEST_DIR} $(DEPS) ${OBJS} 
+${DEST_DIR}/libOSApi.a: ${OBJ_DEST_DIR} ${DEST_DIR} $(DEPS) ${OBJS}
 	@echo "Linking "$<
 	@${AR} cr $@ ${OBJS}
 
