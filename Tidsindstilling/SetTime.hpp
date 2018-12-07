@@ -3,17 +3,19 @@
 #include <string>
 #include <unistd.h>
 #include <cstring>
-#include <vector>
+#include <regex>
 
-std::string getTimeString()
+// 20 Kopper kaffe
+
+int const size = 20;
+
+std::string* getTimeString()
 {
-
   //Define variables
-  int const size = 1024;
-  std::fstream TimeFile;
+  int i = 0;
+  std::ifstream TimeFile;
   std::string line;
-  std::string MyLine[size];
-  std::string* myPointer = MyLine;
+  static std::string MyLine[size];
 
 
   TimeFile.open("TimefromUser.txt");
@@ -22,10 +24,7 @@ std::string getTimeString()
   {
     while(std::getline(TimeFile, line))
     {
-        int i;
         MyLine[i] = line;
-        std::cout << MyLine[i] << std::endl;
-        sleep(1);
         i++;
       //std::cout << MyLine[2] << std::endl;
       //std::cout << line.c_str() << std::endl;
@@ -37,19 +36,7 @@ std::string getTimeString()
     std::cout << "Timefile is not open" << std::endl;
   }
 
-  std::cout << &MyLine[0] << std::endl;
-  std::cout << &MyLine[1] << std::endl;
-  std::cout << &MyLine[2] << std::endl;
-  std::cout << &MyLine[3] << std::endl;
-  std::cout << &MyLine[4] << std::endl;
-  std::cout << MyLine[0] << std::endl;
-  std::cout << MyLine[1] << std::endl;
-  std::cout << MyLine[2] << std::endl;
-  std::cout << MyLine[3] << std::endl;
-  std::cout << MyLine[4] << std::endl;
-  std::cout << myPointer << "Yoooo" << std::endl;
-
-  return *myPointer;
+  return MyLine;
 }
 
 std::string getCurrentTime()
@@ -69,14 +56,24 @@ std::string getCurrentTime()
   std::string str(buffer);
 
 // Return value
-  return str.c_str();
+  return str;
 }
 
 bool compareTime(std::string textFile, std::string RPITime)
 {
-  std::cout << textFile.c_str() << std::endl;
-  std::cout << RPITime.c_str() << std::endl;
-  if (strcmp(textFile.c_str(), RPITime.c_str()) == 0)
+
+  std::string s = textFile;
+
+   std::regex theRegex("^\\s*\\d+,\\s+\\d+,\\s+\\d+,\\s+(.*)");
+
+   std::smatch result;
+
+   std::regex_search(s, result, theRegex);
+
+   std::string var = result.str(1);
+
+
+  if (var == RPITime)
 	{
     return true;
 	}
@@ -84,4 +81,69 @@ bool compareTime(std::string textFile, std::string RPITime)
   {
     return false;
   }
+
 }
+
+char getFirstChar(std::string File1)
+{
+  std::string s = File1;
+  std::regex theRegex(R"((\d+), \d+, \d+)");
+  std::smatch result;
+  std::regex_search(s, result, theRegex);
+  std::string getresult = result.str(1);
+  char rresult1 = getresult[0];
+
+    return rresult1;
+}
+
+char getSecondChar(std::string File2)
+{
+  std::string s = File2;
+  std::regex theRegex(R"(\d+, (\d+), \d+)");
+  std::smatch result;
+  std::regex_search(s, result, theRegex);
+  std::string getresult = result.str(1);
+  char rresult2 = getresult[0];
+
+    return rresult2;
+}
+
+char getThirdChar(std::string File3)
+{
+  std::string s = File3;
+  std::regex theRegex(R"(\d+, \d+, (\d+),)");
+  std::smatch result;
+  std::regex_search(s, result, theRegex);
+  std::string getresult = result.str(1);
+  char rresult3 = getresult[0];
+
+    return rresult3;
+}
+
+/*
+void deleteTimefromTxt(std::string File1)
+{
+  std::cout << UserTime.c_str() << std::endl;
+}
+*/
+/*
+void eraseFileLine(std::string path, std::string eraseLine) {
+std::string line;
+std::ifstream fin;
+
+fin.open(path);
+std::ofstream temp; // contents of path must be copied to a temp file then renamed back to the path file
+temp.open("temp.txt");
+
+while (getline(fin, line)) {
+  line.replace(line.find(deleteline),deleteline.length(),"");
+    temp << line << endl;
+}
+
+temp.close();
+fin.close();
+
+const char * p = path.c_str(); // required conversion for remove and rename functions
+remove(p);
+rename("temp.txt", p);}
+*/
