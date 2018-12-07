@@ -7,7 +7,6 @@
   // Max number time the machine will keep track on at the same time
 
 
-
 int main(){
 
   while(1)
@@ -29,19 +28,16 @@ int main(){
       std::cout << "First Coffee Paramter is: " << firstChar << std::endl;
       std::cout << "Second Coffee Paramter is: " << secondChar << std::endl;
       std::cout << "Third Coffee Paramter is: " << thirdChar << std::endl;
-
+      const char* nameOfFile = "TimefromUser.txt";
+      int lineNuumber = j + 1;
+      deleteTimefromTxt(nameOfFile, lineNuumber);
+      std::cout << "Deleted the following line: " << ToFunction << std::endl;
       sleep(60);
       }
-      else{
-      std::cout << "No Data to send - You are Coff-free" << std::endl;
-      }
 
     }
     }
+    std::cout << "No Data to send - You are Coff-free" << std::endl;
     sleep(20);
 }
 }
-
-
-
-

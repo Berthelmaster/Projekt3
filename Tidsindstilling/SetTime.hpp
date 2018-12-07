@@ -120,30 +120,38 @@ char getThirdChar(std::string File3)
     return rresult3;
 }
 
-/*
-void deleteTimefromTxt(std::string File1)
+void deleteTimefromTxt(const char *file_name, int n)
 {
-  std::cout << UserTime.c_str() << std::endl;
+    // open file in read mode or in mode
+    std::ifstream is(file_name);
+
+    // open file in write mode or out mode
+    std::ofstream ofs;
+    ofs.open("temp.txt", std::ofstream::out);
+
+    // loop getting single characters
+    char c;
+    int line_no = 1;
+    while (is.get(c))
+    {
+        // if a newline character
+        if (c == '\n')
+        line_no++;
+
+        // file content not to be deleted
+        if (line_no != n)
+            ofs << c;
+    }
+
+    // closing output file
+    ofs.close();
+
+    // closing input file
+    is.close();
+
+    // remove the original file
+    remove(file_name);
+
+    // rename the file
+    rename("temp.txt", file_name);
 }
-*/
-/*
-void eraseFileLine(std::string path, std::string eraseLine) {
-std::string line;
-std::ifstream fin;
-
-fin.open(path);
-std::ofstream temp; // contents of path must be copied to a temp file then renamed back to the path file
-temp.open("temp.txt");
-
-while (getline(fin, line)) {
-  line.replace(line.find(deleteline),deleteline.length(),"");
-    temp << line << endl;
-}
-
-temp.close();
-fin.close();
-
-const char * p = path.c_str(); // required conversion for remove and rename functions
-remove(p);
-rename("temp.txt", p);}
-*/
