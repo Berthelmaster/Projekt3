@@ -18,7 +18,7 @@ std::string* getTimeString()
   static std::string MyLine[size];
 
 
-  TimeFile.open("TimefromUser.txt");
+  TimeFile.open("TimeLog.txt");
 
   if(TimeFile.is_open())
   {

@@ -2,7 +2,7 @@
 
 
   //std::string LineNumber = "4";
-  //eraseFileLine("TimefromUser.txt", LineNumber);
+  //eraseFileLine("TimeLog.txt", LineNumber);
 
   // Max number time the machine will keep track on at the same time
 
@@ -28,7 +28,7 @@ int main(){
       std::cout << "First Coffee Paramter is: " << firstChar << std::endl;
       std::cout << "Second Coffee Paramter is: " << secondChar << std::endl;
       std::cout << "Third Coffee Paramter is: " << thirdChar << std::endl;
-      const char* nameOfFile = "TimefromUser.txt";
+      const char* nameOfFile = "TimeLog.txt";
       int lineNuumber = j + 1;
       deleteTimefromTxt(nameOfFile, lineNuumber);
       std::cout << "Deleted the following line: " << ToFunction << std::endl;
@@ -38,6 +38,6 @@ int main(){
     }
     }
     std::cout << "No Data to send - You are Coff-free" << std::endl;
-    sleep(20);
+    sleep(13);
 }
 }
