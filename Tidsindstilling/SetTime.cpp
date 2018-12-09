@@ -1,5 +1,10 @@
 #include "SetTime.hpp"
 
+#if defined(__arm__)
+bool definitely_not_a_rpi = false;
+#else
+bool definitely_not_a_rpi = true;
+#endif
 
   //std::string LineNumber = "4";
   //eraseFileLine("TimeLog.txt", LineNumber);
@@ -34,10 +39,15 @@ int main(){
       std::cout << "Deleted the following line: " << ToFunction << std::endl;
       sleep(60);
       }
+      if(condition == false && j == 19)
+      {
+        std::cout << "No Data to send - You are Coff-free" << std::endl;
+        sleep(13);
+
+      }
+
 
     }
-    }
-    std::cout << "No Data to send - You are Coff-free" << std::endl;
-    sleep(13);
+  }
 }
 }
