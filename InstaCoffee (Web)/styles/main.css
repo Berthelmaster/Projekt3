@@ -36,24 +36,24 @@ img{
 }
 
 img[name="bonner"]{
-    width: 200px; 
+    width: 200px;
     height: auto;
 }
 
 img[name="cup"]{
-    width: 240px; 
+    width: 240px;
     height: auto;
 }
 
 img[id="peterlarsen"]{
     border: 3px dotted black;
-    width: 175px; 
+    width: 175px;
     height: 125px;
 }
 
 img[id="merrild"]{
     border: 3px dotted black;
-    width: 150px; 
+    width: 150px;
     height: 125px;
 }
 
@@ -71,7 +71,7 @@ p[name="status"]{
     margin-right: 0;
 }
 
-p[id="status"]{ 
+p[id="status"]{
     display: block;
     font-family: "Arial Black", Gadget, sans-serif;
     font-size: 1rem;
@@ -101,7 +101,7 @@ div.fixed {
     -webkit-appearance: none;
     width: 25%;
     height: 10px;
-    border-radius: 5px;   
+    border-radius: 5px;
     background: #efefef;
     outline: none;
     opacity: 0.7;
@@ -114,8 +114,8 @@ div.fixed {
     appearance: none;
     width: 25px;
     height: 25px;
-    border-radius: 50%; 
-    background: #4f2929;
+    border-radius: 50%;
+    background: ##efefef;
     cursor: pointer;
 }
 

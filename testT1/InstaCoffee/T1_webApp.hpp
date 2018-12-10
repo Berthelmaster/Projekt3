@@ -8,6 +8,7 @@
 #include "MsgQueue.h"
 #include <string_view> //TILFØJET
 #include <uWS/uWS.h> //TILFØJET
+#include <fstream> //TILFØJET
 
 class T1_webApp :public osapi::ThreadFunctor
 {
@@ -23,4 +24,6 @@ public:
 private:
   MsgQueue*  mq_;
   osapi::MsgQueue*  T2Mq_;
+  uWS::Hub h_;
+  char * state_;
 };
