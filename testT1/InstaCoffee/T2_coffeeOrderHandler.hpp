@@ -25,5 +25,5 @@ private:
   UART*              UART_;
   ConvertToGram     grams_;
   char               filter_='0';
-  status            status_;
+  char            status_;
 };

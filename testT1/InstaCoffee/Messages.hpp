@@ -61,16 +61,12 @@ private:
     int cupSize_ = 0;
 };
 
-enum Status{
-  IDLE='1', BREWING='2', ERROR='3'
-};
-
-struct status: public osapi::Message
- {
-   Status coffeeStatus_=IDLE;
- };
-
 enum
 {
   ID_COFFEE_ORDER_IND, ID_STATUS_IND
 };
+
+struct status: public osapi::Message
+ {
+   char coffeeStatus_='1';
+ };

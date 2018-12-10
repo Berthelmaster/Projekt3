@@ -18,8 +18,6 @@ osapi::Message* MsgQueue::receive(unsigned long &id)
 {
   mut_.lock();
 
-  //while(queue_.size() == 0)
-    //reader_.wait(mut_);
   Item i = queue_.front();
   queue_.pop_front();
 

@@ -25,5 +25,5 @@ private:
   MsgQueue*  mq_;
   osapi::MsgQueue*  T2Mq_;
   uWS::Hub h_;
-  char * state_;
+  char  state_;
 };

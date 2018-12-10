@@ -73,7 +73,7 @@ void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)
       //UART_.sendCoffeOrder(filter_, ind->getCupSize(), ind->getCoffeeType(), grams_.getGrams(ind->getCupSize(), ind->getCoffeeStrength()));
       if(++filter_>=8)
         filter_=0;
-      status_.coffeeStatus_=BREWING;
+      status_='2';
       sendStatus();
     }
     break;

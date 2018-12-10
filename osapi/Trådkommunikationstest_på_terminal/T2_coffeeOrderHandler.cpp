@@ -73,13 +73,14 @@ void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)
     {
 
       CoffeeOrder* ind = static_cast<CoffeeOrder*>(msg);
-      //UART_.sendCoffeOrder(filter_, ind->getCupSize(), ind->getCoffeeType(), grams_.getGrams(ind->getCupSize(), ind->getCoffeeStrength()));
-      if(++filter_>='8')
-        filter_='0';
       std::cout << filter_ << '\n';
       std::cout << ind->getCupSize() << '\n';
       std::cout << ind->getCoffeeType() << '\n';
       std::cout << grams_.getGrams(ind->getCupSize(), ind->getCoffeeStrength()) << '\n';
+      //UART_.sendCoffeOrder(filter_, ind->getCupSize(), ind->getCoffeeType(), grams_.getGrams(ind->getCupSize(), ind->getCoffeeStrength()));
+      if(++filter_>='8')
+        filter_='0';
+
       status_.coffeeStatus_=BREWING;
       status* in=new status;
       T1Mq_->send(ID_STATUS_IND, in);
