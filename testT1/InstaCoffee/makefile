@@ -1,5 +1,5 @@
 # What you set
-SRC=traadkommunikationtest.cpp ConvertToGram.cpp UART.cpp Messages.cpp T1_webApp.cpp T2_coffeeOrderHandler.cpp T3_localUI.cpp T4_timeSetting.cpp
+SRC=traadkommunikationtest.cpp ConvertToGram.cpp UART.cpp Messages.cpp T1_webApp.cpp T2_coffeeOrderHandler.cpp T3_localUI.cpp T4_timeSetting.cpp MsgQueue.cpp
 # Name of your exe file
 EXE_NAME=main
 # Path to where UWS source is
