@@ -44,11 +44,11 @@ MsgQueue* T1_webApp::getmsgQ()
 void T1_webApp::run()
 {
   if (h_.listen(3000)) {
-      h_.poll();
-      unsigned long id;
-      osapi::Message* msg=mq_->receive(id);
-      handler(msg, id);
-      delete msg;
+      h_.run();
+    //  unsigned long id;
+    //  osapi::Message* msg=mq_->receive(id);
+    //  handler(msg, id);
+    //  delete msg;
   }
 } //end run
 
