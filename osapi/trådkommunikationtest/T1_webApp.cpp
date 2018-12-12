@@ -17,8 +17,8 @@ void T1_webApp::run()
   //Like whatever code u need
   while(true)
   {
-    osapi::sleep(1000);
-    getStatus();
+    //osapi::sleep(1000);
+    //getStatus();
 
   }
 }

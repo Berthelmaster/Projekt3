@@ -62,18 +62,17 @@ void T2_coffeOrderHandler::sendStatus()
 
 void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)
 {
-  std::cout << "handlerT2" << '\n';
   switch(id)
   {
     case(ID_COFFEE_ORDER_IND):
     {
-      std::cout << "id" << '\n';
+      std::cout << "coffee order from T4" << '\n';
       CoffeeOrder* ind = static_cast<CoffeeOrder*>(msg);
       //UART_.sendCoffeOrder(filter_, ind->getCupSize(), ind->getCoffeeType(), grams_.getGrams(ind->getCupSize(), ind->getCoffeeStrength()));
       if(++filter_>=8)
         filter_=0;
-      status_.coffeeStatus_=BREWING;
-      sendStatus();
+      //status_.coffeeStatus_=BREWING;
+      //sendStatus();
     }
     break;
   }
