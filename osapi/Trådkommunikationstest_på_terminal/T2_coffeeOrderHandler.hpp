@@ -20,10 +20,10 @@ public:
   osapi::MsgQueue* getmsgQ();
 
 private:
-  osapi::MsgQueue*    mq_;
-  MsgQueue*           T1Mq_;
-  UART*               UART_;
-  ConvertToGram       grams_;
-  char                filter_='0';
-  char                status_;
+  osapi::MsgQueue*  mq_;
+  MsgQueue*  T1Mq_;
+  UART*              UART_;
+  ConvertToGram     grams_;
+  char               filter_='0';
+  status            status_;
 };

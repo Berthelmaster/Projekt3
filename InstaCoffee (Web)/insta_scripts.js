@@ -37,8 +37,8 @@ switch(cupSize) {
         break;
 }
 
-  
-  
+
+
 }
 
 
@@ -46,7 +46,6 @@ function init()
 {
   output = document.getElementById("output");
   testWebSocket();
-  updateStatus();
 
   //Sættes et andet sted eller tilføj refresh
 }
@@ -65,7 +64,7 @@ function onOpen(evt)
   writeToScreen("CONNECTED");
   doSend("Connection open");
   setTime();
-  updateStatus();
+  getStatus();
 }
 
 function onClose(evt)
@@ -75,8 +74,14 @@ function onClose(evt)
 
 function onMessage(evt)
 {
-  writeToScreen('<span style="color: blue;">RESPONSE: ' + evt.data+'</span>');
-  //Status = evt.data;
+  var message = evt.data;
+  writeToScreen('<span style="color: blue;">RESPONSE: ' + message+'</span>');
+
+  if (message[0] == '!')
+  {
+    Status=message.charAt(1);;
+    updateStatus();
+  }
 }
 
 function onError(evt)
@@ -108,9 +113,9 @@ function clickOnCoffee(select)
   }
   if (select==2) {
     document.getElementById("peterlarsen").style.border = "3px solid green";
-    document.getElementById("merrild").style.border = "3px dotted black";  
+    document.getElementById("merrild").style.border = "3px dotted black";
   }
-  
+
 }
 
 function clickOnOrderCoffee()
@@ -120,12 +125,12 @@ function clickOnOrderCoffee()
     writeToScreen(message);
     writeToScreen("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
     doSend("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
-  } 
+  }
   else
   {
     alert("Coffee Machine not ready!");
-    updateStatus();
-  } 
+    getStatus();
+  }
 }
 
 
@@ -144,7 +149,7 @@ function setTime()
  var today = new Date();
  var dd = today.getDate(); //day
  var mm = today.getMonth()+1; //January is 0
- var yyyy = today.getFullYear(); 
+ var yyyy = today.getFullYear();
 
  if (dd<10) {
   dd="0"+dd;
@@ -156,9 +161,14 @@ function setTime()
  document.getElementById("brewDate").value=String(yyyy+"-"+mm+"-"+dd);
 }
 
+function getStatus()
+{
+  doSend("!");
+}
+
 function updateStatus()
 {
-  switch(Status) 
+  switch(Status)
   {
     case '1':
       document.getElementById("status").innerHTML="Ready";
