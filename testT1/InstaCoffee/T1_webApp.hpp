@@ -16,7 +16,9 @@ public:
   T1_webApp(int size, osapi::MsgQueue *T2msgQ);
   virtual void run();
   void handler(osapi::Message* msg, unsigned long id);
+  void handleMessage(char *Message,uWS::WebSocket<uWS::SERVER> *ws,uWS::OpCode opCode);
   void sendCoffeeOrder(char, char, char);
+  bool saveTXT(char * Message);
   MsgQueue* getmsgQ();
   void getStatus(uWS::WebSocket<uWS::SERVER> *ws);
 

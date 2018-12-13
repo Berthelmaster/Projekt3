@@ -8,31 +8,8 @@ T1_webApp::T1_webApp(int size, osapi::MsgQueue *T2msgQ)
   h_.onMessage([this](uWS::WebSocket<uWS::SERVER> *ws, char *message, size_t length, uWS::OpCode opCode) {
       std::cout << "Data: " << std::string_view(message, length) << std::endl; //udskriver beskeden
 
-    switch (message[0])
-    {
-      case '!':
-        ws->send("!1", 3, opCode);
-        break;
+      handleMessage(message,ws,opCode);
 
-      case '%':
-        ws->send("Coffee Ordered", 14, opCode);
-        sendCoffeeOrder(message[4],message[1],message[7]);
-        std::cout<<message[1]<<message[4]<<message[7]<<'\n';
-        break;
-
-      case '&':
-        ws->send("BrewTime set", 12, opCode);
-        std::string brewtime(++message,25); //DEFINE!!!
-        std::ofstream logfile ("TimeLog.txt",std::ios::app);
-        if (logfile.is_open())
-        {
-          logfile <<brewtime<<'\n';
-          logfile.close();
-        }
-        else std::cout << "Unable to save brewTime";
-        std::cout <<brewtime<<'\n';
-        break;
-    }
 });
 }
 
@@ -45,10 +22,6 @@ void T1_webApp::run()
 {
   if (h_.listen(3000)) {
       h_.run();
-    //  unsigned long id;
-    //  osapi::Message* msg=mq_->receive(id);
-    //  handler(msg, id);
-    //  delete msg;
   }
 
 } //end run
@@ -66,12 +39,51 @@ void T1_webApp::handler(osapi::Message* msg, unsigned long id)
   }
 }
 
+void T1_webApp::handleMessage(char *Message,uWS::WebSocket<uWS::SERVER> *ws,uWS::OpCode opCode)
+{
+  switch (Message[0])
+  {
+    case '!':
+      ws->send("!1", 3, opCode);
+      break;
+
+    case '%':
+      sendCoffeeOrder(Message[4],Message[1],Message[7]);
+      ws->send("Coffee Ordered", 14, opCode);
+      break;
+
+    case '&':
+      if(saveTXT(Message))
+        ws->send("BrewTime set", 12, opCode);
+        else ws->send("Failed to set brewTime", 23, opCode);
+
+      break;
+  }
+}
+
 void T1_webApp::sendCoffeeOrder(char size, char type, char strength)
 {
   CoffeeOrder* ind = new CoffeeOrder(size, type, strength);
   T2Mq_->send(ID_COFFEE_ORDER_IND, ind);
 }
 
+bool T1_webApp::saveTXT(char *Message)
+{
+  std::string brewtime(++Message,25);
+  std::ofstream logfile ("TimeLog.txt",std::ios::app);
+  if (logfile.is_open())
+  {
+    logfile <<brewtime<<'\n';
+    logfile.close();
+  }
+  else
+  {
+    std::cout << "Unable to save brewTime";
+    return false;
+  }
+  std::cout <<brewtime<<'\n';
+  return true;
+}
 void T1_webApp::getStatus(uWS::WebSocket<uWS::SERVER> *ws)
 {
   unsigned long id;
