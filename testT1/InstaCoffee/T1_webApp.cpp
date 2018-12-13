@@ -54,8 +54,8 @@ void T1_webApp::handleMessage(char *Message,uWS::WebSocket<uWS::SERVER> *ws,uWS:
 
     case '&':
       if(saveTXT(Message))
-        ws->send("BrewTime set", 12, opCode);
-        else ws->send("Failed to set brewTime", 23, opCode);
+        ws->send("Brew time set", 12, opCode);
+        else ws->send("Failed to set brew time", 23, opCode);
 
       break;
   }
