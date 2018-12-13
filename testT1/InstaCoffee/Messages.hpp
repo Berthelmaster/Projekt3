@@ -17,8 +17,6 @@ class CoffeeOrder : public osapi::Message {
     {
       if (num == '1' || num == '2')
         coffeeType_ = num;
-      else
-        std::cout << "Coffee Type not valid" << std::endl;
     }
 
     char getCoffeeType()
@@ -30,8 +28,6 @@ class CoffeeOrder : public osapi::Message {
     {
       if (strength > '0' && strength <= '3')
         coffeeStrength_ = strength;
-      else
-        std::cout << "Coffee strength not valid" << std::endl;
     }
 
     char getCoffeeStrength()
@@ -43,8 +39,6 @@ class CoffeeOrder : public osapi::Message {
     {
       if (size> '0' && size <= '3')
         cupSize_=((int)size-48+1)*10;//cupSize in cl achieved
-      else
-        std::cout << "Cup size not valid" << std::endl;
     }
 
     int getCupSize()
@@ -56,17 +50,17 @@ class CoffeeOrder : public osapi::Message {
     {}
 
 private:
-    char coffeeType_ = '0';
-    char coffeeStrength_ = '0';
-    int cupSize_ = 0;
+    char coffeeType_ = '1';
+    char coffeeStrength_ = '2';
+    int cupSize_ = 20;
 };
 
 enum
 {
-  ID_COFFEE_ORDER_IND, ID_STATUS_IND
+  ID_COFFEE_ORDER_IND, ID_STATUS_IND, IDLE='1', BREWING='2', ERROR='3'
 };
 
 struct status: public osapi::Message
  {
-   char coffeeStatus_='1';
+   char coffeeStatus_=IDLE;
  };
