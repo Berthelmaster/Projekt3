@@ -15,6 +15,7 @@ legend {
     font-size: 1.1rem;
     color: #cccccc;
     text-shadow: 3px 3px black;
+    text-align: center;
 }
 
 label {
@@ -25,7 +26,7 @@ label {
 }
 
 img {
-    width: 25%; 
+    width: 25%;
     height: auto;
     border: 3px solid black;
 }

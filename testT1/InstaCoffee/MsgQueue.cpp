@@ -17,14 +17,16 @@ void MsgQueue::send(unsigned long id, osapi::Message* msg)
 osapi::Message* MsgQueue::receive(unsigned long &id)
 {
   mut_.lock();
-
-  Item i = queue_.front();
-  queue_.pop_front();
-
-  mut_.unlock();
-
-  id=i.id_;
-  return i.msg_;
+  
+    if(size()!=0){
+      Item i = queue_.front();
+      queue_.pop_front();
+      mut_.unlock();
+      id=i.id_;
+      return i.msg_;
+    }
+    mut_.unlock();
+    return nullptr;
 }
 
 unsigned long MsgQueue::size() const

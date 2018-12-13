@@ -24,7 +24,6 @@ UART::UART()
 
   // Set the new options for the port
   tcsetattr(fd, TCSANOW, &options);
-
   // Makes read return 0, if nothing is in buffer, so it doesn't block up program
   // fcntl(fd, F_SETFL, FNDELAY);
   fcntl(fd, F_SETFL, 0);
@@ -68,19 +67,18 @@ void UART::writeChar(char message)
 
 char UART::receiveStatus()
 {
-  pthread_mutex_lock(&m_);
+  mut_.lock();
   char status;
   writeChar('%');
   writeByte(0x0);
   status = readChar();
-  pthread_mutex_unlock(&m_);
+  mut_.unlock();
   return status;
-
 }
 
 void UART::sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount)
 {
-  pthread_mutex_lock(&m_);
+  mut_.lock();
   writeChar('$');
 
 
@@ -103,7 +101,7 @@ void UART::sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char
   writeChar('!');
   writeByte(0x1);
   writeByte(0x0);
-  pthread_mutex_unlock(&m_);
+mut_.unlock();
 }
 
 UART::~UART()
