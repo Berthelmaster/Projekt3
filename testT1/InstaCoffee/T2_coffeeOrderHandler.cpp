@@ -37,6 +37,7 @@ void T2_coffeOrderHandler::sendStatus()
 
   do{
     char id = UART_->receiveStatus();
+    std::cout << id << '\n';
     //  char id='2';
     switch(id)
     {

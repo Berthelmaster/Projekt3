@@ -27,7 +27,7 @@ DEST_DIR=bin/${TARGET}/${MODE}
 OBJ_DEST_DIR=build/${TARGET}/${MODE}
 
 UWSLIBPATH=${UWSPATH}/lib/${TARGET}/${MODE}
-LDFLAGS=-L$(UWSLIBPATH) -luWS -lssl -lcrypto -lz -luv -lrt -lpthread -lOSApi
+LDFLAGS=-L$(UWSLIBPATH) -luWS -lssl -lcrypto -lz -lrt -lpthread -lOSApi
 
 
 
