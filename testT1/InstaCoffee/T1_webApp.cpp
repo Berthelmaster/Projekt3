@@ -4,12 +4,12 @@ T1_webApp::T1_webApp(int size, osapi::MsgQueue *T2msgQ)
 {
   mq_ = new MsgQueue(size);
   T2Mq_=T2msgQ;
+  state_[0]='!';
+  state_[1]='1';
+  state_[2]='\0';
 
   h_.onMessage([this](uWS::WebSocket<uWS::SERVER> *ws, char *message, size_t length, uWS::OpCode opCode) {
-      std::cout << "Data: " << std::string_view(message, length) << std::endl; //udskriver beskeden
-
       handleMessage(message,ws,opCode);
-
 });
 }
 
@@ -33,7 +33,7 @@ void T1_webApp::handler(osapi::Message* msg, unsigned long id)
     case(ID_STATUS_IND):
     {
       status* ind = static_cast<status*>(msg);
-      state_=ind->coffeeStatus_;
+      state_[1]=ind->coffeeStatus_;
     }
     break;
   }
@@ -44,7 +44,8 @@ void T1_webApp::handleMessage(char *Message,uWS::WebSocket<uWS::SERVER> *ws,uWS:
   switch (Message[0])
   {
     case '!':
-      ws->send("!1", 3, opCode);
+      getStatus();
+      ws->send(state_, 2, opCode);
       break;
 
     case '%':
@@ -54,7 +55,7 @@ void T1_webApp::handleMessage(char *Message,uWS::WebSocket<uWS::SERVER> *ws,uWS:
 
     case '&':
       if(saveTXT(Message))
-        ws->send("Brew time set", 12, opCode);
+        ws->send("Brew time set", 13, opCode);
         else ws->send("Failed to set brew time", 23, opCode);
 
       break;
@@ -84,10 +85,12 @@ bool T1_webApp::saveTXT(char *Message)
   std::cout <<brewtime<<'\n';
   return true;
 }
-void T1_webApp::getStatus(uWS::WebSocket<uWS::SERVER> *ws)
+void T1_webApp::getStatus()
 {
   unsigned long id;
   osapi::Message* msg=mq_->receive(id);
-  //handler(msg, id, ws);
+  if (msg!=nullptr)
+    handler(msg, id);
   delete msg;
 }
+

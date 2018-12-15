@@ -4,7 +4,7 @@
 
 int const size = 20;
 
-std::string* getTimeString()
+std::string* T4_timeSetting::getTimeString()
 {
   //Define variables
   int i = 0;
@@ -34,7 +34,7 @@ std::string* getTimeString()
   return MyLine;
 }
 
-std::string getCurrentTime()
+std::string T4_timeSetting::getCurrentTime()
 {
   time_t rawtime;
 
@@ -54,7 +54,7 @@ std::string getCurrentTime()
   return str;
 }
 
-bool compareTime(std::string textFile, std::string RPITime)
+bool T4_timeSetting::compareTime(std::string textFile, std::string RPITime)
 {
 
   std::string s = textFile;
@@ -79,7 +79,7 @@ bool compareTime(std::string textFile, std::string RPITime)
 
 }
 
-char getFirstChar(std::string File1)
+char T4_timeSetting::getFirstChar(std::string File1)
 {
   std::string s = File1;
   std::regex theRegex(R"((\d+), \d+, \d+)");
@@ -91,7 +91,7 @@ char getFirstChar(std::string File1)
     return rresult1;
 }
 
-char getSecondChar(std::string File2)
+char T4_timeSetting::getSecondChar(std::string File2)
 {
   std::string s = File2;
   std::regex theRegex(R"(\d+, (\d+), \d+)");
@@ -103,7 +103,7 @@ char getSecondChar(std::string File2)
     return rresult2;
 }
 
-char getThirdChar(std::string File3)
+char T4_timeSetting::getThirdChar(std::string File3)
 {
   std::string s = File3;
   std::regex theRegex(R"(\d+, \d+, (\d+),)");
@@ -115,7 +115,7 @@ char getThirdChar(std::string File3)
     return rresult3;
 }
 
-void deleteTimefromTxt(const char *file_name, int n)
+void T4_timeSetting::deleteTimefromTxt(const char *file_name, int n)
 {
     // open file in read mode or in mode
     std::ifstream is(file_name);

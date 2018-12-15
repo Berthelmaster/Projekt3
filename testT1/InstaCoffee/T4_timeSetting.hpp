@@ -16,6 +16,13 @@ public:
   T4_timeSetting(osapi::MsgQueue *T2msgQ);
   virtual void run();
   void sendCoffeeOrder(char, char, char);
+  std::string* getTimeString();
+  std::string getCurrentTime();
+  bool compareTime(std::string textFile, std::string RPITime);
+  char getFirstChar(std::string File1);
+  char getSecondChar(std::string File2);
+  char getThirdChar(std::string File3);
+  void deleteTimefromTxt(const char *file_name, int n);
 
 private:
   osapi::MsgQueue*  T2Mq_;

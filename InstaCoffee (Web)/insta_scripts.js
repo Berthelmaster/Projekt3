@@ -1,10 +1,9 @@
-var wsUri = "ws://10.9.8.2:3000/";
+var wsUri = "ws://192.168.43.246:3000/";
 var output;
 var coffeeselect = 0;
 var coffeeStrength = 2;
 var cupSize = 2;
 var brewTime;
-var filter = 1;
 var Status;
 
 var sliderCoffeeStrength = document.getElementById("myStrength");
@@ -46,13 +45,13 @@ function init()
 {
   output = document.getElementById("output");
   testWebSocket();
-
-  //Sættes et andet sted eller tilføj refresh
 }
 
 function testWebSocket()
 {
   websocket = new WebSocket(wsUri);
+  if(!websocket)
+    console.error("Connection error");
   websocket.onopen = function(evt) { onOpen(evt) };
   websocket.onclose = function(evt) { onClose(evt) };
   websocket.onmessage = function(evt) { onMessage(evt) };
@@ -75,13 +74,13 @@ function onClose(evt)
 function onMessage(evt)
 {
   var message = evt.data;
-  writeToScreen('<span style="color: blue;">RESPONSE: ' + message+'</span>');
 
   if (message[0] == '!')
   {
-    Status=message.charAt(1);;
+    Status=message.charAt(1);
     updateStatus();
-  }
+  }else writeToScreen('<span style="color: blue;">' + message+'</span>');
+
 }
 
 function onError(evt)
@@ -120,17 +119,17 @@ function clickOnCoffee(select)
 
 function clickOnOrderCoffee()
 {
-  if (Status=='1'){
+  if (Status!='3'){
     var message = "You ordered coffee #" + String(coffeeselect) + ", Strength: " + String(coffeeStrength) + ", Cup size: " + String(cupSize);
     writeToScreen(message);
-    writeToScreen("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
     doSend("%"+coffeeselect+", "+coffeeStrength+", "+cupSize);
   }
   else
   {
     alert("Coffee Machine not ready!");
-    getStatus();
+
   }
+  getStatus();
 }
 
 
