@@ -11,6 +11,7 @@ T3_LocalUI::T3_LocalUI(osapi::MsgQueue *T2msgQ, UART* u)
 void T3_LocalUI::run()
 {
   //Alt funktionalitet skal ske herfra
+  //crazy statamchine implementation!!!
 }
 
 void T3_LocalUI::sendCoffeeOrder(int size, int type, int strength)

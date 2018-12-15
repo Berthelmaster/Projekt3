@@ -140,7 +140,6 @@ function setBrewTime()
   var message = "You ordered coffee #" + String(coffeeselect) + ", Strength: " + String(coffeeStrength) + ", Cup size: " + String(cupSize);
   writeToScreen(message);
   doSend("&"+coffeeselect+", "+coffeeStrength+", "+cupSize+", "+brewTime);
-  writeToScreen("&"+coffeeselect+", "+coffeeStrength+", "+cupSize+", "+brewTime);
 }
 
 function setTime()
@@ -180,7 +179,7 @@ function updateStatus()
       break;
 
     case '3':
-      document.getElementById("status").innerHTML="Out of clean filters";
+      document.getElementById("status").innerHTML="Error";
       document.getElementById("status").style.color="red";
       break;
 

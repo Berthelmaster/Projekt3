@@ -45,6 +45,7 @@ void T1_webApp::handleMessage(char *Message,uWS::WebSocket<uWS::SERVER> *ws,uWS:
   {
     case '!':
       getStatus();
+      std::cout << state_ << '\n';
       ws->send(state_, 2, opCode);
       break;
 
@@ -93,4 +94,3 @@ void T1_webApp::getStatus()
     handler(msg, id);
   delete msg;
 }
-

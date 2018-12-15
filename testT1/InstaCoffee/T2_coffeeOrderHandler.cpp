@@ -31,11 +31,11 @@ void T2_coffeOrderHandler::run()
 
 void T2_coffeOrderHandler::sendStatus()
 {
-  status* ind=new status;
   //ind->coffeeStatus_=BREWING;
   //T1Mq_->send(ID_STATUS_IND, ind);
 
   do{
+    status* ind=new status;
     char id = UART_->receiveStatus();
     std::cout << id << '\n';
     //  char id='2';
@@ -61,7 +61,9 @@ void T2_coffeOrderHandler::sendStatus()
       T1Mq_->send(ID_STATUS_IND, ind);
       status_=ind->coffeeStatus_;
     }
-  } while(ind->coffeeStatus_!=IDLE);
+    else
+      delete ind;
+  } while(status_!=IDLE);
 }
 
 void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)

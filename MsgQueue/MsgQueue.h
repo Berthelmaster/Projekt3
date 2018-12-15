@@ -1,7 +1,6 @@
 #pragma once
 #include <deque>
 #include <osapi/Mutex.hpp>
-#include <osapi/Conditional.hpp>
 #include <osapi/Message.hpp>
 #include <string>
 #include <iostream>
@@ -28,5 +27,4 @@ private:
   Queue                     queue_;
   unsigned long             MaxSize_;
   osapi::Mutex              mut_;
-  osapi::Conditional        reader_, writer_;
 };
