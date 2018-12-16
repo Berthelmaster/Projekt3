@@ -63,6 +63,9 @@ void T2_coffeOrderHandler::sendStatus()
     }
     else
       delete ind;
+
+    if (status_!=IDLE)
+      osapi::sleep(10000);
   } while(status_!=IDLE);
 }
 
@@ -85,6 +88,7 @@ void T2_coffeOrderHandler::handler(osapi::Message* msg, unsigned long id)
       status* in=new status;
       in->coffeeStatus_=status_;
       T1Mq_->send(ID_STATUS_IND, in);
+      osapi::sleep(5000);
       sendStatus();
     }
     break;

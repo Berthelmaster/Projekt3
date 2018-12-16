@@ -10,8 +10,8 @@ UART::UART()
   tcgetattr(fd, &options);
 
   // Set baudrate
-  cfsetispeed(&options, B115200);
-  cfsetospeed(&options, B115200);
+  cfsetispeed(&options, B57600);
+  cfsetospeed(&options, B57600);
 
   // Enable the receiver and set local mode
   options.c_cflag |= (CLOCAL | CREAD);
@@ -69,9 +69,22 @@ char UART::receiveStatus()
 {
   mut_.lock();
   char status;
-  writeChar('%');
+
+  //initial startup message
+  writeByte(1);
+  writeByte(1);
+  writeByte(1);
+
+  writeByte(0x25);
   writeByte(0x0);
+
+  //end com
+  writeByte(0);
+  writeByte(0);
+  writeByte(0);
+
   status = readChar();
+
   mut_.unlock();
   return status;
 }
@@ -79,29 +92,49 @@ char UART::receiveStatus()
 void UART::sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount)
 {
   mut_.lock();
-  writeChar('$');
-
-
-  // Start filling water tank
-  writeByte(0x5);
-  writeByte(waterAmount);
+  //initial startup message
+  writeByte(1);
+  writeByte(1);
+  writeByte(1);
 
   // Chosen filter
+  writeChar('$');
   writeByte(0x1);
-  writeChar(filter);
+  writeChar(filter-48);
+
+  // Water amount
+  writeChar('$');
+  writeByte(0x4);
+  writeByte(waterAmount);
 
   // Chosen coffee
+  writeChar('$');
   if (CoffeeNumber == '1')
-    writeByte(0x6);
+    writeByte(0x5);
   else
-    writeByte(0x7);
+    writeByte(0x6);
+  // coffee amount
+  writeByte(14);
 
-  // Dispense coffee
-  writeByte(coffeeAmount);
+  writeByte(0);
+  writeByte(0);
+  writeByte(0);
+
+  osapi::sleep(20);
+
+  writeByte(1);
+  writeByte(1);
+  writeByte(1);
+  //begin brewing
   writeChar('!');
-  writeByte(0x1);
   writeByte(0x0);
-mut_.unlock();
+
+  //end com
+  writeByte(0);
+  writeByte(0);
+  writeByte(0);
+
+  mut_.unlock();
 }
 
 UART::~UART()
