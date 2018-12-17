@@ -1,3 +1,4 @@
+
 #include "UART.h"
 
 
@@ -9,8 +10,8 @@ UART::UART()
   tcgetattr(fd, &options);
 
   // Set baudrate
-  cfsetispeed(&options, B115200);
-  cfsetospeed(&options, B115200);
+  cfsetispeed(&options, B57600);
+  cfsetospeed(&options, B57600);
 
   // Enable the receiver and set local mode
   options.c_cflag |= (CLOCAL | CREAD);
@@ -20,6 +21,9 @@ UART::UART()
   options.c_cflag &= ~CSTOPB; // Disable 2 stop bit with tilde(~)
   options.c_cflag &= ~CSIZE;  // Mask the character size bits
   options.c_cflag |= CS8;     // Select 8 data bits
+
+  // Echo Disable
+  options.c_lflag &= ~(ECHO | ECHONL | ICANON | IEXTEN | ISIG);
 
   // Set the new options for the port
   tcsetattr(fd, TCSANOW, &options);
@@ -65,38 +69,81 @@ void UART::writeChar(char message)
     fputs("write() of 1 byte failed!\n", stderr);
 }
 
-char UART::receivestatus()
+char UART::receiveStatus()
 {
+  mut_.lock();
   char status;
-  writeChar('%');
+
+  //initial startup message
+  //writeByte(1);
+  //writeByte(1);
+  //writeByte(1);
+
+  writeByte(0x25);
   writeByte(0x0);
+
+  //end com
+  //writeByte(0);
+  //writeByte(0);
+  //writeByte(0);
+
   status = readChar();
+
+  mut_.unlock();
   return status;
 }
 
-void UART::sendCoffeorder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount)
+void UART::sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount)
 {
-  writeChar('$');
-
-  // Start filling water tank
-  writeByte(0x5);
-  writeByte(waterAmount);
+  mut_.lock();
+  //initial startup message
+  //writeByte(1);
+  //writeByte(1);
+  //writeByte(1);
+  osapi::sleep(30);
 
   // Chosen filter
+  writeChar('$');
   writeByte(0x1);
-  writeChar(filter);
+  writeChar(filter-48);
+
+  osapi::sleep(30);
+
+  // Water amount
+  writeChar('$');
+  writeByte(0x4);
+  writeByte(waterAmount);
+
+  osapi::sleep(30);
 
   // Chosen coffee
+  writeChar('$');
   if (CoffeeNumber == '1')
-    writeByte(0x6);
+    writeByte(0x5);
   else
-    writeByte(0x7);
+    writeByte(0x6);
+  // coffee amount
+  writeByte(14);
 
-  // Dispense coffee
-  writeByte(coffeeAmount);
+  //writeByte(0);
+  //writeByte(0);
+  //writeByte(0);
+
+  osapi::sleep(30);
+
+  //writeByte(1);
+  //writeByte(1);
+  //writeByte(1);
+  //begin brewing
   writeChar('!');
-  writeByte(0x1);
   writeByte(0x0);
+
+  //end com
+  //writeByte(0);
+  //writeByte(0);
+  //writeByte(0);
+
+  mut_.unlock();
 }
 
 UART::~UART()

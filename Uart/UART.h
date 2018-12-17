@@ -10,6 +10,7 @@
 #include <errno.h>   /* Error number definitions */
 #include <termios.h> /* POSIX terminal control definitions */
 #include <iostream>
+#include <osapi/Mutex.hpp>
 
 class UART
 {
@@ -18,13 +19,14 @@ public:
   char readChar();
   void writeByte(char message);
   void writeChar(char message);
-  char receivestatus();
-  void sendCoffeorder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount);
+  char receiveStatus();
+  void sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char coffeeAmount);
   ~UART();
 private:
   void open_port();
-  int bytes;
-  int fd; //File desciptor
-  char buf[10];
-  struct termios options;
+  int               bytes;
+  int               fd; //File desciptor
+  char              buf[10];
+  struct termios    options;
+  osapi::Mutex      mut_;
 };

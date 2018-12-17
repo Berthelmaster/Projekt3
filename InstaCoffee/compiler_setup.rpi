@@ -1,0 +1,4 @@
+#echo "Target"
+CXX=arm-rpizw-g++
+AR=arm-poky-linux-gnueabi-ar
+OS=OS_LINUX
