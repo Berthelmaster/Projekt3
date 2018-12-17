@@ -16,12 +16,12 @@ int main(int argc, char *argv[])
     char buf[bufsize];
     int status = 0;
     int length = 3;			//<<< Number of bytes to write
-    buf[0] = 0x01;
-    buf[1] = 0x02;
-    buf[2] = 0x03;
+    buf[0] = 0x10000000;
+    buf[1] = 0x31;
+    buf[2] = 0x00000000;
 
     fd = open("/dev/i2c-1", O_WRONLY); //Åbner I2C
-    ioctl(fd, 0x0703, 0x48);  //Sætter adresse
+    ioctl(fd, 0x0703, 0b0111100);  //Sætter adresse
 
     while(1)
     {

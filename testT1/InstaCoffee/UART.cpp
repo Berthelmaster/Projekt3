@@ -22,8 +22,12 @@ UART::UART()
   options.c_cflag &= ~CSIZE;  // Mask the character size bits
   options.c_cflag |= CS8;     // Select 8 data bits
 
+  // Echo Disable
+  options.c_lflag &= ~(ECHO | ECHONL | ICANON | IEXTEN | ISIG);
+
   // Set the new options for the port
   tcsetattr(fd, TCSANOW, &options);
+
   // Makes read return 0, if nothing is in buffer, so it doesn't block up program
   // fcntl(fd, F_SETFL, FNDELAY);
   fcntl(fd, F_SETFL, 0);
@@ -71,17 +75,17 @@ char UART::receiveStatus()
   char status;
 
   //initial startup message
-  writeByte(1);
-  writeByte(1);
-  writeByte(1);
+  //writeByte(1);
+  //writeByte(1);
+  //writeByte(1);
 
   writeByte(0x25);
   writeByte(0x0);
 
   //end com
-  writeByte(0);
-  writeByte(0);
-  writeByte(0);
+  //writeByte(0);
+  //writeByte(0);
+  //writeByte(0);
 
   status = readChar();
 
@@ -93,19 +97,24 @@ void UART::sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char
 {
   mut_.lock();
   //initial startup message
-  writeByte(1);
-  writeByte(1);
-  writeByte(1);
+  //writeByte(1);
+  //writeByte(1);
+  //writeByte(1);
+  osapi::sleep(30);
 
   // Chosen filter
   writeChar('$');
   writeByte(0x1);
   writeChar(filter-48);
 
+  osapi::sleep(30);
+
   // Water amount
   writeChar('$');
   writeByte(0x4);
   writeByte(waterAmount);
+
+  osapi::sleep(30);
 
   // Chosen coffee
   writeChar('$');
@@ -116,23 +125,23 @@ void UART::sendCoffeOrder(char filter, char waterAmount, char CoffeeNumber, char
   // coffee amount
   writeByte(14);
 
-  writeByte(0);
-  writeByte(0);
-  writeByte(0);
+  //writeByte(0);
+  //writeByte(0);
+  //writeByte(0);
 
-  osapi::sleep(20);
+  osapi::sleep(30);
 
-  writeByte(1);
-  writeByte(1);
-  writeByte(1);
+  //writeByte(1);
+  //writeByte(1);
+  //writeByte(1);
   //begin brewing
   writeChar('!');
   writeByte(0x0);
 
   //end com
-  writeByte(0);
-  writeByte(0);
-  writeByte(0);
+  //writeByte(0);
+  //writeByte(0);
+  //writeByte(0);
 
   mut_.unlock();
 }
